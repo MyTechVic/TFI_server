@@ -5,15 +5,16 @@ const bodyParser = require('body-parser');
 const PaintInfo = require('./controllers/PaintInfo');
 const Deletejob = require('./controllers/DeleteJob');
 const Newjob = require('./controllers/NewJob');
-
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config')[env];
 
 //connecting local mongodb database named test
-mongoose.connect('mongodb://127.0.0.1:27017/TFI',{
+mongoose.connect(config.server.port ,{
 	 useNewUrlParser: true 
 })
+
 console.log('MongoDB connected');
 mongoose.connection.on('error', err => ('MongoDB connection error: ${err}'));
-
 
 
 const app = express();
@@ -36,6 +37,7 @@ app.get("/Deletejob", (req, res) => {
 app.get("/Newjob", (req, res) => {
   
 });
+
 
 
 app.listen(port, () => {

@@ -1,20 +1,22 @@
 //This code requires mongoose node module
-const mongoose = require('mongoose');
 const express = require("express");
 const bodyParser = require('body-parser');
 const PaintInfo = require('./controllers/PaintInfo');
 const Deletejob = require('./controllers/DeleteJob');
 const Newjob = require('./controllers/NewJob');
-const env = process.env.NODE_ENV || 'development';
-const config = require('./config')[env];
+const mongoose = require('mongoose');
+const MongoClient = require('mongodb').MongoClient;
+//const env = process.env.NODE_ENV || 'development';
+//const config = require('./config')[env];
 
 //connecting local mongodb database named test
-mongoose.connect(config.server.port ,{
-	 useNewUrlParser: true 
-})
+
+
+const MONGO_URL = 'somecodehere';
+
+return mongoose.connect(encodeURI(process.env.MONGO_URL));
 
 console.log('MongoDB connected');
-mongoose.connection.on('error', err => ('MongoDB connection error: ${err}'));
 
 
 const app = express();

@@ -17,7 +17,7 @@ mongoose.connection.on('error', err => ('MongoDB connection error: ${err}'));
 
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3000;
  
 app.get("/", (req, res) => {
    res.json('If you see this message the server is running and the database is connected! YAY');

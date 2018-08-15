@@ -1,6 +1,8 @@
 // server/models/Article.js
 const mongoose = require('mongoose')
-let PaintInfoSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+
+let PaintInfoSchema = new Schema(
     {
     	companyName: String,
         curtainCodes: String,
@@ -9,5 +11,6 @@ let PaintInfoSchema = new mongoose.Schema(
         Method: String,
     }
 );
+
 
 module.exports = mongoose.model('PaintInfo', PaintInfoSchema)

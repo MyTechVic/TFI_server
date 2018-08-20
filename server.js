@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const PaintInfo = require('./controllers/PaintInfo');
 const Deletejob = require('./controllers/DeleteJob');
 const Newjob = require('./controllers/NewJob');
+var cors = require('cors')
 //const PaintInfoSchema = require('./models/PaintInfoSchema');
 const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
@@ -79,7 +80,7 @@ console.log('MongoDB connected');
 
 const app = express();
 const port = process.env.PORT || 3001;
-
+app.use(cors())
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect

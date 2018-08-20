@@ -15,7 +15,7 @@ const MongoClient = require('mongodb').MongoClient;
 // server/models/Article.js
 const Schema = mongoose.Schema;
 
-const MONGO_URL = '/////';
+const MONGO_URL = 'mongodb://Matt:Outbreak23@ds119652.mlab.com:19652/tfi-database';
 
 
 mongoose.connect(MONGO_URL);
@@ -49,11 +49,11 @@ db.once('open', function callback() {
 
  // Create seed data
   let paintinfomation = new PaintInfo({
-    companyName: 'LinFox',
-    curtainCodes: '#000000',
-    sinageCodes: '#FFFFFF',
-    Notes: 'this is a test!',
-    Method: 'the method is all of the code you wrote!'
+    companyName: '',
+    curtainCodes: '',
+    sinageCodes: '',
+    Notes: '',
+    Method: ''
   });
 
 
@@ -78,16 +78,40 @@ db.once('open', function callback() {
 console.log('MongoDB connected');
 
 const app = express();
-const port = process.env.PORT || 3000;
- 
+const port = process.env.PORT || 3001;
+
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000', 'http://localhost:3001');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 app.get("/", (req, res) => {
    res.json('If you see this message the server is running and the database is connected! YAY');
 });
 
-app.get("/PaintInfo", (req, res) => {
-  PaintInfo.find({}).then(eachOne => {
-    res.json(eachOne);
-    })
+
+app.get("/saveInfo", function(request, response){
+
+   const companyName = request.body.companyName;
+   const curtainCodes = request.body.curtainCodes;
+   const sinageCodes = request.body.sinageCodes;
+   const Notes = request.body.Notes;
+   const Method = request.body.Method;
+   console.log("Post Received: %s %s %s", companyName, curtainCodes, sinageCodes, Notes , Method );
 });
   
 app.get("/Deletejob", (req, res) => {
@@ -97,6 +121,7 @@ app.get("/Deletejob", (req, res) => {
 app.get("/Newjob", (req, res) => {
   
 });
+
 
 
 

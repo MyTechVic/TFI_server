@@ -1,5 +1,6 @@
 // server/models/Article.js
 const mongoose = require('mongoose')
+var uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
   // Create schema
@@ -11,33 +12,28 @@ const Schema = mongoose.Schema;
             type: String
         },
     	companyName: {
-            required: true,
             index: true,
     		type: String
     	},
         curtainCodes: {
-            required: true,
             index: true,
         	type: String
         },
         sinageCodes: {
-            required: true,
             index: true,
         	type: String
         },
         Notes: {
-            required: true,
             index: true,
         	type: String
         },
         Method: {
-            required: true,
             index: true,
         	type: String
         },
     },{
       collection: 'tfiPaintCodes'
     });
-
+PaintInfoSchema.plugin(uniqueValidator);
 module.exports = mongoose.model('PaintInfoSchema', PaintInfoSchema)
 

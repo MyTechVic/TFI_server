@@ -15,13 +15,14 @@ tfiPaintCodesRouter.route('/add').post(function (req, res) {
     })
     .catch(err => {
     res.status(400).send("unable to save to database");
+    console.log('CustomerID is required', err.res);
     });
 });
 
 tfiPaintCodesRouter.route('/').get(function (req, res) {
     PaintInfoSchema.find(function (err, tfipaintcodes){
     if(err){
-      console.log(err);
+      console.log('this is an error!', err.res);
     }
     else {
       res.json(tfipaintcodes);

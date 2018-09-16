@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const tfiPaintCodesRouter = require('./routes/tfiPaintCodesRouter');
+const searchRoute = require('./routes/searchRoute');
 const users = require('./routes/user'); 
 
 const cors = require('cors')
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/saveInfo', tfiPaintCodesRouter);
+app.use('/getData', searchRoute);
 app.listen(port, () => {
   console.log("Server listening on port " + port);
 });

@@ -1,0 +1,14 @@
+.Login_container {
+	margin-top: 100px;
+
+}
+
+.Login_Form{
+}
+
+.Login_Card{
+	width: 50%;
+	margin: auto;
+	padding: 20px;
+	box-shadow: 1px 10px 20px;
+}

@@ -1,30 +1,30 @@
 // tfiPaintCodesRouter.js
 
-const express = require('express');
+const express = require("express");
 const app = express();
 const tfiPaintCodesRouter = express.Router();
 
-const PaintInfoSchema = require('../models/PaintInfoSchema.js');
+const PaintInfoSchema = require("../models/PaintInfoSchema.js");
 
-tfiPaintCodesRouter.route('/get').get(function (req, res) {
+tfiPaintCodesRouter.route("/get").get(function(req, res) {
   const tfipaintcode = new PaintInfoSchema(req.body);
-  console.log(req.body)
-  tfipaintcode.save()
+  console.log(req.body);
+  tfipaintcode
+    .save()
     .then(tfipaintcode => {
-        res.json('Got data!!');
+      res.json("Got data!!");
     })
     .catch(err => {
-    res.status(400).send("unable to get data");
-    console.log('CustomerID is required', err.res);
+      res.status(400).send("unable to get data");
+      console.log("CustomerID is required", err.res);
     });
 });
 
-tfiPaintCodesRouter.route('/').get(function (req, res) {
-    PaintInfoSchema.find(function (err, tfipaintcodes){
-    if(err){
-      console.log('this is an error!', err.res);
-    }
-    else {
+tfiPaintCodesRouter.route("/").get(function(req, res) {
+  PaintInfoSchema.find(function(err, tfipaintcodes) {
+    if (err) {
+      console.log("this is an error!", err.res);
+    } else {
       res.json(tfipaintcodes);
     }
   });

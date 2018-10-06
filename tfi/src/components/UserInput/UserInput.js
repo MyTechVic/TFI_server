@@ -11,8 +11,14 @@ import {
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "./UserInput.css";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 class UserInput extends React.Component {
+
+  static propTypes = {
+    customer: PropTypes.object,
+  };
+
 	constructor(props) {
 		super(props);
 		this.onChange = this.onChange.bind(this);
@@ -68,6 +74,22 @@ class UserInput extends React.Component {
 			.post(" http://localhost:5000/saveInfo/add", tfiInfo)
 			.then(res => console.log("RESULTS", res.data));
 	}
+
+  componentWillReceiveProps(newProps) {
+    const {customer} = newProps;
+    if (customer && customer.customerID !== this.state.customerID) {
+      console.log(customer);
+      this.setState({
+        customerID: customer.customerID,
+        companyName: customer.company,
+        curtainCodes: customer.curtain,
+        sinageCodes: customer.sinage,
+        Notes: customer.notes,
+        Method: customer.method,
+      });
+    }
+  }
+
 	render() {
 		return (
 			<Container>

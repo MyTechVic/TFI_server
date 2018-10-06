@@ -1,10 +1,17 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import { Form, FormGroup, Input, Container, Row, Col, Label } from "reactstrap";
 import "./Search.css";
 import axios from "axios";
 import SearchBox from "react-search-box";
 
 class Search extends React.Component {
+
+  static propTypes = {
+    handleCustomer: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +27,6 @@ class Search extends React.Component {
   search = query => {
     let filter = {};
     if (this.state.companyFilter) {
-      // filter = {"customerID": this.state.companyFilter};
       filter = {"customerID": {$regex: ".*"+this.state.companyFilter+".*", $options: 'i'}};
     }
 
@@ -30,6 +36,7 @@ class Search extends React.Component {
         customerID: obj.customerID,
         company: obj.companyName,
         sinage: obj.sinageCodes,
+        curtain: obj.curtainCodes,
         method: obj.Method,
         notes: obj.Notes
       }));
@@ -49,6 +56,10 @@ class Search extends React.Component {
     if (e.key === 'Enter') {
       this.search();
     }
+  };
+
+  handleCustomer = () => {
+
   };
 
   componentDidMount() {
@@ -75,7 +86,7 @@ class Search extends React.Component {
         {this.state.searchInfo.map(function(searchInfo, index) {
           return (
             <div key={index}>
-              <h1>
+              <h1 onClick={() => this.props.handleCustomer(searchInfo)}>
                 {searchInfo.customerID.match(
                   new RegExp(this.state.companyFilter, "i")
                 ) || this.state.companyFilter === ""

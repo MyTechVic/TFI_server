@@ -5,12 +5,35 @@ import Navigation from "../Nav/Nav";
 import React from "react";
 
 class Dashboard extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      customer: null
+    };
+
+    this.handleCustomer = this.handleCustomer.bind(this);
+  }
+
+  handleCustomer(customer) {
+    this.setState({customer: customer});
+  }
+
 	render() {
+    const searchProps = {
+      handleCustomer: this.handleCustomer,
+    };
+
+    const inputProps = {
+      customer: this.state.customer
+    };
+
 		return (
 			<div className="App">
 				<Navigation />
-				<Search />
-				<UserInput />
+				<Search {...searchProps} />
+				<UserInput {...inputProps} />
 			</div>
 		);
 	}

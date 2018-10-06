@@ -21,7 +21,8 @@ tfiPaintCodesRouter.route("/get").get(function(req, res) {
 });
 
 tfiPaintCodesRouter.route("/").get(function(req, res) {
-  PaintInfoSchema.find(function(err, tfipaintcodes) {
+  let filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+  PaintInfoSchema.find(filter).exec(function(err, tfipaintcodes) {
     if (err) {
       console.log("this is an error!", err.res);
     } else {

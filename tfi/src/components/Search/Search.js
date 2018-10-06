@@ -14,10 +14,18 @@ class Search extends React.Component {
     };
 
     this.itWorks = this.itWorks.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   search = query => {
-    axios.get("http://localhost:5000/getData").then(res => {
+    let filter = {};
+    if (this.state.companyFilter) {
+      // filter = {"customerID": this.state.companyFilter};
+      filter = {"customerID": {$regex: ".*"+this.state.companyFilter+".*", $options: 'i'}};
+    }
+
+    let url = "http://localhost:5000/getData?filter=" + JSON.stringify(filter);
+    axios.get(url).then(res => {
       const searchInfo = (res.data || []).map(obj => ({
         customerID: obj.customerID,
         company: obj.companyName,
@@ -37,6 +45,12 @@ class Search extends React.Component {
     });
   }
 
+  handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      this.search();
+    }
+  };
+
   componentDidMount() {
     this.search("");
   }
@@ -54,6 +68,7 @@ class Search extends React.Component {
               id="exampleSearch"
               placeholder="Search for a CumstomerID"
               onChange={this.itWorks}
+              onKeyPress={this.handleSearch}
             />
           </FormGroup>
         </Container>

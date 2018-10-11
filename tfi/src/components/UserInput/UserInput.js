@@ -14,10 +14,9 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 class UserInput extends React.Component {
-
-  static propTypes = {
-    customer: PropTypes.object,
-  };
+	static propTypes = {
+		customer: PropTypes.object
+	};
 
 	constructor(props) {
 		super(props);
@@ -72,28 +71,40 @@ class UserInput extends React.Component {
 		console.log("STATE", this.state);
 		axios
 			.post(" http://localhost:5000/saveInfo/add", tfiInfo)
-			.then(res => console.log("RESULTS", res.data));
+			.then(res => console.log("RESULTS", res.data))
+			.catch(error => {
+				console.log(error.response);
+				if (error.response.status === 400) {
+					alert(
+						"Either you entered the same ID or you haven't entered an ID at all!"
+					);
+				}
+			});
+		this.resetName();
 	}
 
-  componentWillReceiveProps(newProps) {
-    const {customer} = newProps;
-    if (customer && customer.customerID !== this.state.customerID) {
-      console.log(customer);
-      this.setState({
-        customerID: customer.customerID,
-        companyName: customer.company,
-        curtainCodes: customer.curtain,
-        sinageCodes: customer.sinage,
-        Notes: customer.notes,
-        Method: customer.method,
-      });
-    }
-  }
+	componentWillReceiveProps(newProps) {
+		const { customer } = newProps;
+		if (customer && customer.customerID !== this.state.customerID) {
+			console.log(customer);
+			this.setState({
+				customerID: customer.customerID,
+				companyName: customer.company,
+				curtainCodes: customer.curtain,
+				sinageCodes: customer.sinage,
+				Notes: customer.notes,
+				Method: customer.method
+			});
+		}
+	}
 
 	render() {
 		return (
-			<Container>
-				<AvForm onSubmit={this.onSubmit}>
+			<Container className="userContainer">
+				<AvForm
+					ref={ref => (this.formRef = ref)}
+					onSubmit={this.onSubmit}
+				>
 					<Row>
 						<Col sm="3">
 							<FormGroup>

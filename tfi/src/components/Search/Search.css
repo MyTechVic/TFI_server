@@ -1,4 +1,18 @@
-.SearchBar{
+.SearchBar {
 	padding: 20px;
+}
 
+.SearchResults {
+	overflow-y: scroll;
+	height: 200px;
+	padding: 20px;
+	width: 500px;
+	margin-bottom: 60px;
+	box-shadow: 0px 2px 5px;
+	cursor: pointer;
+}
+
+.returned:hover {
+	background-color: #eee;
+	width: 400px;
 }

@@ -1,22 +1,13 @@
 import React from "react";
-import PropTypes from 'prop-types';
-
-import { Form, FormGroup, Input, Container, Row, Col, Label } from "reactstrap";
+import { FormGroup, Input, Container, Row, Col, Label } from "reactstrap";
 import "./Search.css";
 import axios from "axios";
-import SearchBox from "react-search-box";
 
 class Search extends React.Component {
-
-  static propTypes = {
-    handleCustomer: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
       searchInfo: [],
-      query: "",
       companyFilter: ""
     };
 
@@ -27,7 +18,12 @@ class Search extends React.Component {
   search = query => {
     let filter = {};
     if (this.state.companyFilter) {
-      filter = {"customerID": {$regex: ".*"+this.state.companyFilter+".*", $options: 'i'}};
+      filter = {
+        customerID: {
+          $regex: ".*" + this.state.companyFilter + ".*",
+          $options: "i"
+        }
+      };
     }
 
     let url = "http://localhost:5000/getData?filter=" + JSON.stringify(filter);
@@ -52,21 +48,17 @@ class Search extends React.Component {
     });
   }
 
-  handleSearch = (e) => {
-    if (e.key === 'Enter') {
+  handleSearch = e => {
+    if (e.key === "Enter") {
       this.search();
     }
-  };
-
-  handleCustomer = () => {
-
   };
 
   componentDidMount() {
     this.search("");
   }
   render() {
-    const { query, searchInfo } = this.state;
+    const { searchInfo } = this.state;
 
     return (
       <div>
@@ -83,24 +75,32 @@ class Search extends React.Component {
             />
           </FormGroup>
         </Container>
-        {this.state.searchInfo.map(function(searchInfo, index) {
-          return (
-            <div key={index}>
-              <h1 onClick={() => this.props.handleCustomer(searchInfo)}>
-                {searchInfo.customerID.match(
-                  new RegExp(this.state.companyFilter, "i")
-                ) || this.state.companyFilter === ""
-                  ? "customerID: " + searchInfo.customerID
-                  : ""}
-              </h1>
-              {
-                //      <p> Singcode: {searchInfo.sinage}</p>
-                //      <p> Method: {searchInfo.method}</p>
-                //      <p> Notes: {searchInfo.notes}</p>
-              }
-            </div>
-          );
-        }, this)}
+        <Container>
+          <div className="SearchResults">
+            {this.state.searchInfo.map(function(searchInfo, index) {
+              return (
+                <Container>
+                  <Row>
+                    <Col>
+                      <div key={index}>
+                        <p
+                          className="returned"
+                          onClick={() => this.props.handleCustomer(searchInfo)}
+                        >
+                          {searchInfo.customerID.match(
+                            new RegExp(this.state.companyFilter, "i")
+                          ) || this.state.companyFilter === ""
+                            ? searchInfo.customerID
+                            : ""}
+                        </p>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              );
+            }, this)}
+          </div>
+        </Container>
       </div>
     );
   }

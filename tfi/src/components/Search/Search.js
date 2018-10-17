@@ -58,8 +58,6 @@ class Search extends React.Component {
     this.search("");
   }
   render() {
-    const { searchInfo } = this.state;
-
     return (
       <div>
         <Container>
@@ -79,10 +77,10 @@ class Search extends React.Component {
           <div className="SearchResults">
             {this.state.searchInfo.map(function(searchInfo, index) {
               return (
-                <Container>
+                <Container key={index}>
                   <Row>
                     <Col>
-                      <div key={index}>
+                      <div>
                         <p
                           className="returned"
                           onClick={() => this.props.handleCustomer(searchInfo)}

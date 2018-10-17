@@ -71,13 +71,17 @@ class UserInput extends React.Component {
 		console.log("STATE", this.state);
 		axios
 			.post(" http://localhost:5000/saveInfo/add", tfiInfo)
-			.then(res => console.log("RESULTS", res.data))
+			.then(res => {
+				console.log("RESULTS", res.data);
+				if (res.status === 200) {
+					alert("Data Saved");
+					console.log(res);
+				}
+			})
 			.catch(error => {
 				console.log(error.response);
 				if (error.response.status === 400) {
-					alert(
-						"Either you entered the same ID or you haven't entered an ID at all!"
-					);
+					alert("invalid ID");
 				}
 			});
 		this.resetName();

@@ -31,7 +31,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "npm run start --prefix tfi",
     "dev": "concurrently \"npm run server\" \"npm run client\""

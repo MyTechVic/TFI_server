@@ -32,6 +32,10 @@ app.use(bodyParser.json());
 app.use("/api/users", users);
 app.use("/saveInfo", tfiPaintCodesRouter);
 app.use("/getData", searchRoute);
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname + "/tfi/build/index.html"));
+});
+
 app.listen(port, () => {
 	console.log("Server listening on port " + port);
 });

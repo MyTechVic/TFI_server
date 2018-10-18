@@ -34,7 +34,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "npm run start --prefix tfi",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "heroku-postbuild": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

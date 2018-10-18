@@ -26,7 +26,7 @@ class Search extends React.Component {
       };
     }
 
-    let url = "http://localhost:5000/getData?filter=" + JSON.stringify(filter);
+    let url = "/getData?filter=" + JSON.stringify(filter);
     axios.get(url).then(res => {
       const searchInfo = (res.data || []).map(obj => ({
         customerID: obj.customerID,

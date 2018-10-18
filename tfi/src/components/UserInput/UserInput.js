@@ -70,7 +70,7 @@ class UserInput extends React.Component {
 		console.log("TFI INFORMATION", tfiInfo);
 		console.log("STATE", this.state);
 		axios
-			.post(" http://localhost:5000/saveInfo/add", tfiInfo)
+			.post("/saveInfo/add", tfiInfo)
 			.then(res => {
 				console.log("RESULTS", res.data);
 				if (res.status === 200) {

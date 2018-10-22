@@ -34,7 +34,6 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix tfi",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd tfi && npm install && npm run build"
   },
   "cacheDirectories": ["node_modules", "tfi/node_modules"],

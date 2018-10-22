@@ -6,6 +6,7 @@ import { logoutUser } from "../../actions/authentication";
 import { withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
 import logo from "./tfiLoog.png";
+import "./Nav.css";
 
 class Navigation extends React.Component {
 	onLogout(e) {
@@ -41,7 +42,7 @@ class Navigation extends React.Component {
 			</ul>
 		);
 		return (
-			<nav className="navbar navbar-expand-lg navbar-light bg-light">
+			<nav className="navbar navbar-expand-lg navbar-light  Nav">
 				<Link className="navbar-brand" to="/">
 					<img src={logo} title={user.name} alt="Logo" />
 				</Link>

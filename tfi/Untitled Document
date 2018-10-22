@@ -1,0 +1,1 @@
+"heroku-postbuild": "cd tfi && npm install && npm run build",

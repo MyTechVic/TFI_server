@@ -5,8 +5,9 @@
 
 .FormGroupsTfi {
 	padding: 10px;
-	border: solid 1px;
-	box-shadow: 0px 3px 3px;
+	box-shadow: 7px 7px 7px #797979;
+	color: white;
+	background-color: #27aae1;
 }
 
 .submit_button {

@@ -67,7 +67,7 @@ class Search extends React.Component {
               type="search"
               name="search"
               id="exampleSearch"
-              placeholder="Search for a CumstomerID"
+              placeholder="Search for a CustomerID"
               onChange={this.itWorks}
               onKeyPress={this.handleSearch}
             />
